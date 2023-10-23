@@ -14,11 +14,8 @@ const getrowbyID = async (table, pk_name, pk_value) => {
     WHERE ${pk_name} = ?`,
     [pk_value]
   );
-  if (rows == "") {
-    return 1;
-  } else {
-    return 0;
-  }
+  console.log(rows[0]);
+  return rows[0];
 };
 
 const deletebyID = async (table, pk_name, pk_value) => {

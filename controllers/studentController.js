@@ -13,7 +13,7 @@ const addStudent = asyncHandler(async (req, res) => {
     throw new Error("All fields are mandatory");
   }
 
-  if ((await getrowbyID("students", "reg_no", reg_no)) == 0) {
+  if (await getrowbyID("students", "reg_no", reg_no)) {
     res.status(400);
     throw new Error("Student Already Exists");
   }
@@ -40,12 +40,10 @@ const updateStudent = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("All fields are mandatory");
   }
-  const NotAvailable = await getrowbyID("students", "reg_no", reg_no);
-  if (NotAvailable) {
+  if (! await getrowbyID("students", "reg_no", reg_no)) {
     res.status(400);
-    throw new Error("Student not exists");
+    throw new Error("Student not exist");
   }
-  console.log(NotAvailable);
   const updateStatement = `
   UPDATE students 
   SET ${updateCol} = ?
@@ -64,8 +62,7 @@ const updateStudent = asyncHandler(async (req, res) => {
 //protected route - Admin access
 const deleteStudent = asyncHandler(async (req, res) => {
   const reg_no = req.params.id;
-  const NotAvailable = await getrowbyID("students", "reg_no", reg_no);
-  if (NotAvailable) {
+  if (! await getrowbyID("students", "reg_no", reg_no)) {
     res.status(400);
     throw new Error("Student Doesnt exists");
   }

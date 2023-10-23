@@ -34,7 +34,7 @@ const addStaff = asyncHandler(async (req, res) => {
 // Protected Route - Admin Access
 const updateStaff = asyncHandler(async (req, res) => {
   const { updateCol, updateVal } = req.body;
-  const staff_id = req.params.id;
+  const staff_id = req.params.id; 
   if (!staff_id || !updateCol || !updateVal) {
     res.status(400);
     throw new Error("All fields are mandatory");
@@ -44,7 +44,6 @@ const updateStaff = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("staff not exists");
   }
-  console.log(NotAvailable);
   const updateStatement = `
   UPDATE staffs 
   SET ${updateCol} = ?
