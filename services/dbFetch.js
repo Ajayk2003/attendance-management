@@ -14,7 +14,6 @@ const getrowbyID = async (table, pk_name, pk_value) => {
     WHERE ${pk_name} = ?`,
     [pk_value]
   );
-  console.log(rows[0]);
   return rows[0];
 };
 
