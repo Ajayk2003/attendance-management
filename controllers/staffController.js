@@ -11,7 +11,7 @@ const addStaff = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("All fields are mandatory");
   }
-  if ((await getrowbyID("staffs", "staff_id", staff_id)) == 0) {
+  if (await getrowbyID("staffs", "staff_id", staff_id)) {
     res.status(400);
     throw new Error("Staff already exists ");
   }
@@ -39,8 +39,7 @@ const updateStaff = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("All fields are mandatory");
   }
-  const NotAvailable = await getrowbyID("staffs", "staff_id", staff_id);
-  if (NotAvailable) {
+  if (! await getrowbyID("staffs", "staff_id", staff_id)) {
     res.status(400);
     throw new Error("staff not exists");
   }
@@ -65,15 +64,14 @@ const updateStaff = asyncHandler(async (req, res) => {
 //protected route - Admin access
 const deleteStaff = asyncHandler(async (req, res) => {
   const staff_id = req.params.id;
-  const NotAvailable = await getrowbyID("staffs", "staff_id", staff_id);
-  if (NotAvailable) {
+  if (!await getrowbyID("staffs", "staff_id", staff_id)) {
     res.status(400);
-    throw new Error("Student Doesnt exists");
+    throw new Error("staff Doesnt exists");
   }
   const result = await deletebyID("staffs", "staff_id", staff_id);
   if (result.affectedRows == 0) {
     res.status(400);
-    throw new Error("Error Deleting the Student");
+    throw new Error("Error Deleting the staff");
   }
   res.status(200).json({ message: "Deleted Successfully" });
 });
