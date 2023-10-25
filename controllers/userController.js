@@ -46,7 +46,7 @@ const staffLogin = asyncHandler(async(req, res) => {
     res.status(400);
     throw new Error("All fields are mandantory");
   }
-  console.log(await passwordCompare(password, user.password));
+  const user = await getrowbyID("users", "username", username);
   if (user && (await passwordCompare(password, user.password))) {
     const accessToken =  jwt.sign(
       {
