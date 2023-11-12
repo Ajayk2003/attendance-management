@@ -4,13 +4,12 @@ const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 const { getrowbyID } = require('../services/dbFetch');
 const { passwordHash, passwordCompare } = require('../services/password');
-
+const {errorMandatory} = require("../middlewares/errorhandler")
 
 const staffRegister = asyncHandler(async(req, res) => {
   const { staff_id, username, password } = req.body;
   if(!staff_id || ! username || !password ) {
-    res.status(400);
-    throw new Error('All fields are mandatory');
+    errorMandatory(res);
   }
   if(! await getrowbyID("staffs", "staff_id", staff_id)){
     res.status(400);
@@ -32,7 +31,7 @@ const staffRegister = asyncHandler(async(req, res) => {
   VALUES(?, ?, ?, ?)`;
 
   const [result] = await poolPromise.query(insertStatement, [staff_id, username, hashedPassword, role])
-  if(! result.affectedRows){
+  if(!result.affectedRows){
     res.status(500);
     throw new Error("Registration was Unsuccesful")
   }

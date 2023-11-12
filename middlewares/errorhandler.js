@@ -12,4 +12,9 @@ const errorHandler = (err, req, res, next) => {
   });
 };
 
-module.exports = errorHandler;
+const errorMandatory = (res) => {
+  res.status(400);
+  throw new Error("All fields are mandatory")
+}
+
+module.exports = { errorHandler, errorMandatory };
