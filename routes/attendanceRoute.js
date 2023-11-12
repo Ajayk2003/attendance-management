@@ -1,11 +1,7 @@
-const express = require('express');
-const { addStaff, updateStaff, deleteStaff } = require('../controllers/staffController');
-const { addDate, deleteDate, addAttendance } = require('../controllers/attendanceContorller');
+const {Router} = require('express');
+const router = Router();
+const { getAttendance, addAttendance } = require("../controllers/attendanceContorller");
 
-
-const router = express.Router();
-
-router.route('/').post(addAttendance);
-router.route('/date').post(addDate).delete(deleteDate);
+router.route('/').get(getAttendance).post(addAttendance);
 
 module.exports = router;
