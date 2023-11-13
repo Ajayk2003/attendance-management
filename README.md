@@ -13,7 +13,7 @@ A Backend API to manage attendance with admin control
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/your-node-mysql-project.git
+   git clone https://github.com/Ajayk2003/attendance-management/
 
 2. Install the dependancies :
 
