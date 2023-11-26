@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require('cors');
 const { errorHandler } = require("./middlewares/errorhandler");
 const studentRouter = require("./routes/studentRoute");
 const staffRouter = require("./routes/staffRoute");
@@ -11,6 +12,7 @@ dotenv.config();
 const PORT = process.env.PORT;
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.use("/api/staffs", AuthVerify, staffRouter);

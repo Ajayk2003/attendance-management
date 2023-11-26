@@ -2,7 +2,6 @@ const asyncHandler = require('express-async-handler');
 const jwt = require('jsonwebtoken');
 
 
-
 const adminVerify = asyncHandler(async(req, res, next) => {
   if(req.user.role != "admin"){
     res.status(401);
